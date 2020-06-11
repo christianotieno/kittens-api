@@ -1,4 +1,8 @@
-<p id="notice"><%= notice %></p>
+<%= flash[:success] if flash[:success] %>
+<h1><%= @kitten.name %></h1>
 
-<%= link_to 'Edit', edit_kitten_path(@kitten) %> |
-<%= link_to 'Back', kittens_path %>
+Age: <%= @kitten.age %><br>
+Cuteness level: <%= @kitten.cuteness %><br>
+Softness level: <%= @kitten.softness %><br>
+<br>
+<%= link_to "Kill this poor kitten", @kitten, method: :delete %>

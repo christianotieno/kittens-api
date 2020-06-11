@@ -5,11 +5,20 @@ class KittensController < ApplicationController
   # GET /kittens.json
   def index
     @kittens = Kitten.all
+    respond_to do |format|
+      format.html
+      format.json { render json: @kittens }
+    end
   end
 
   # GET /kittens/1
   # GET /kittens/1.json
   def show
+    @kitten = Kitten.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @kitten }
+    end
   end
 
   # GET /kittens/new
@@ -19,16 +28,17 @@ class KittensController < ApplicationController
 
   # GET /kittens/1/edit
   def edit
+    @kitten = Kitten.find(params[:id])
   end
 
   # POST /kittens
   # POST /kittens.json
   def create
     @kitten = Kitten.new(kitten_params)
-
+    
     respond_to do |format|
       if @kitten.save
-        format.html { redirect_to @kitten, notice: 'Kitten was successfully created.' }
+        format.html { redirect_to @kitten, notice: 'Kitten was successfully created.'}
         format.json { render :show, status: :created, location: @kitten }
       else
         format.html { render :new }
@@ -69,6 +79,6 @@ class KittensController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def kitten_params
-      params.fetch(:kitten, {})
+      params.require(:kitten).permit(:name, :age, :cuteness, :softness)
     end
 end
