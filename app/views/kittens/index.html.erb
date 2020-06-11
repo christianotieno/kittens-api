@@ -1,0 +1,8 @@
+<h1>Edit Kitten Info</h1>
+
+<%= render 'form' %>
+<br>
+<% @kittens.each do |cat| %>
+  <%= link_to cat.name, kitten_path(cat) %> | 
+  <%= link_to "Kill your poor #{cat.name}", @kitten, method: :delete %><br>
+<% end %>
